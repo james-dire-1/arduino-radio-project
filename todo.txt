@@ -1,0 +1,3 @@
+Add code
+Look at markdown formatting guide
+Take photos or create diagrams of circuit and add them to images/ folder
