@@ -1,6 +1,9 @@
 #include "RadioHeaders.h"
 
-void RadioDisplay::Init(RadioHandler handler) {
+#define SCROLL_SPEED 1000
+#define INITIAL_SCROLL_DELAY 3000
+
+void RadioDisplay::Init(RadioHandler* handler) {
   this->handler = handler;
   lcdPtr = new hd44780_I2Cexp();
 
@@ -10,11 +13,37 @@ void RadioDisplay::Init(RadioHandler handler) {
   }
 }
 
+void RadioDisplay::Tick() {
+  if (textToPrint != nullptr) {
+    if (millis() - lastTime >= SCROLL_SPEED) {
+      lastTime = millis();
+      currentCharIndex++;
+      
+      int numVisibleChars = min(textToPrint->length() - currentCharIndex, 16);
+
+      if (numVisibleChars <= 0) {
+        if (repeatScroll) {
+          currentCharIndex = 0;
+          return;
+        } else {
+          delete textToPrint;
+          textToPrint = nullptr;
+        }
+      }
+
+      String visibleText = textToPrint->substring(currentCharIndex, currentCharIndex + numVisibleChars);
+
+      lcdPtr->setCursor(0, 1);
+      lcdPtr->print(visibleText);
+    }
+  }
+}
+
 void RadioDisplay::PrintStationData() {
   Clear();
 
-  FrequencyBand band = handler.band;
-  int frequency = handler.frequency;
+  FrequencyBand band = handler->band;
+  int frequency = handler->frequency;
 
   String freq = String(frequency);
   if (band == FM) {
@@ -27,7 +56,7 @@ void RadioDisplay::PrintStationData() {
   int cursorPosition;
   GetFrequencyTypeInfo(band, modulation, unit, cursorPosition);
 
-  hd44780_I2Cexp& lcd = &lcdPtr;
+  hd44780_I2Cexp lcd = *lcdPtr;
 
   lcd.setCursor(0, 0);
   lcd.print(modulation);
@@ -39,6 +68,15 @@ void RadioDisplay::PrintStationData() {
 
   lcd.setCursor(cursorPosition, 0);
   lcd.print(unit);
+
+  // TODO Add stuff for handler.preset
+}
+
+void RadioDisplay::ScrollText(bool repeatScroll, const char* text) {
+  this->repeatScroll = repeatScroll;
+  textToPrint = new String(text);
+  currentCharIndex = 0;
+  lastTime = millis() + INITIAL_SCROLL_DELAY;
 }
 
 void RadioDisplay::Clear() {

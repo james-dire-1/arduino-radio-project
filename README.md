@@ -1,4 +1,4 @@
-# Project Title
+# Arduino Radio
 
 Arduino radio that is capable of picking up local FM radio stations. The goal is to package the radio into a small portable box that can be brought around easily.
 
@@ -19,19 +19,20 @@ Arduino radio that is capable of picking up local FM radio stations. The goal is
 
 ### Installation
 
-```bash
-# Clone the repository.
+```
+# Clone the repository
 git clone https://github.com/james-dire-1/arduino-radio-project.git
 
 # Navigate to project directory
 cd arduino-radio-project
+```
 
 ## Project Structure
-
 ```
-project/
+arduino-radio-project/
 │
-├── images/          # Additional Documentation files
+├── images/          # Image files
+├── todo.txt         # General todo list
 └── README.md        # This file
 ```
 🔴 TO-DO 🔴

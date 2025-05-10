@@ -1,5 +1,8 @@
 #include "RadioHeaders.h"
 
+#define FM_EEPROM_START 10
+#define AM_EEPROM_START 20
+
 void RadioHandler::SwitchBand() {
   if (band == FM) band = AM;
   else if (band == AM) band = FM;
@@ -7,9 +10,16 @@ void RadioHandler::SwitchBand() {
   int temporaryFrequency = frequency;
   frequency = alternativeFrequency;
   alternativeFrequency = temporaryFrequency;
+
+  frequencyChanged = true;
 }
 
 bool RadioHandler::UpdateCurrentFrequency(int knobDirection) {
+  if (frequencyChanged) {
+    frequencyChanged = false;
+    return true;
+  }
+
   int delta = knobDirection;
 
   if (delta == 0) {
@@ -31,4 +41,22 @@ bool RadioHandler::UpdateCurrentFrequency(int knobDirection) {
   }
 
   return true;
+}
+
+void RadioHandler::TuneToPreset(int preset) {
+  frequencyChanged = true;
+  this->preset = preset;
+
+  int address = GetEEPROMAddress(preset);
+  frequency = (int)EEPROM.read(address);
+}
+
+void RadioHandler::StorePresetStation(int preset, int station) {
+  int address = GetEEPROMAddress(preset);
+  EEPROM.update(address, (uint8_t)station);
+}
+
+int RadioHandler::GetEEPROMAddress(int preset) {
+  int startAddress = (band == FM) ? FM_EEPROM_START : AM_EEPROM_START;
+  return startAddress + preset;
 }
