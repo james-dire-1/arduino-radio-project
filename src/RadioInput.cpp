@@ -1,6 +1,6 @@
 #include "RadioHeaders.h"
 
-RadioInput::Init(int pinA, int pinB, int encoderButton, int pinStickX, int pinStickY, int stickButton) {
+void RadioInput::Init(int pinA, int pinB, int encoderButton, int pinStickX, int pinStickY, int stickButton) {
   encoder = new RotaryEncoder(pinA, pinB, RotaryEncoder::LatchMode::FOUR3);
 
   pinMode(encoderButton, INPUT_PULLUP);

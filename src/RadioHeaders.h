@@ -47,7 +47,7 @@ private:
   bool encoderLastPressed = false;
   bool stickLastPressed = false;
 public:
-  Init(int pinA, int pinB, int encoderButton, int pinStickX, int pinStickY, int stickButton);
+  void Init(int pinA, int pinB, int encoderButton, int pinStickX, int pinStickY, int stickButton);
   void Tick();
   bool KnobIsDown();
   int KnobGetDirection();
