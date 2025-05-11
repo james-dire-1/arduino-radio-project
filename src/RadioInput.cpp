@@ -1,5 +1,7 @@
 #include "RadioHeaders.h"
 
+#define LONG_PRESS_TIME 3000
+
 void RadioInput::Init(int pinA, int pinB, int encoderButton, int pinStickX, int pinStickY, int stickButton) {
   encoder = new RotaryEncoder(pinA, pinB, RotaryEncoder::LatchMode::FOUR3);
 
@@ -15,6 +17,9 @@ void RadioInput::Init(int pinA, int pinB, int encoderButton, int pinStickX, int 
 
 void RadioInput::Tick() {
   encoder->tick();
+
+  if (!stickLastPressed)
+    lastDownTime = millis();
 }
 
 bool RadioInput::KnobIsDown() {
@@ -26,17 +31,15 @@ int RadioInput::KnobGetDirection() {
 }
 
 int RadioInput::JoystickGetRegion() {
-  static bool lastInRegion;
-
-  int realX = analogRead(A1);
-  int realY = analogRead(A2);
+  int realX = analogRead(pinStickX);
+  int realY = analogRead(pinStickY);
 
   float x = (realX / 1023.0f) * 2 - 1;
   float y = (abs(realY - 1023) / 1023.0f) * 2 - 1;
 
   float r = sqrt(x * x + y * y);
   float theta = atan2(y, x) * 180 / PI;
-  theta += 22.5;
+  theta += 45;
   if (theta < 0) theta += 360;
   if (theta >= 360) theta -= 360;
 
@@ -46,14 +49,10 @@ int RadioInput::JoystickGetRegion() {
   if (inRegion && !lastInRegion) {
     lastInRegion = true;
 
-    if (theta >= 20 && theta < 25) region = 3;
-    else if (theta >= 25 && theta < 110) region = 2;
-    else if (theta >= 110 && theta < 115) region = 1;
-    else if (theta >= 115 && theta < 200) region = 8;
-    else if (theta >= 200 && theta < 205) region = 7;
-    else if (theta >= 205 && theta < 290) region = 6;
-    else if (theta >= 290 && theta < 295) region = 5;
-    else if ((theta >= 295 && theta <= 359) || (theta >= 0 && theta < 20)) region = 4;
+    if (theta >= 0 && theta < 90) region = 2;
+    else if (theta >= 90 && theta < 180) region = 1;
+    else if (theta >= 180 && theta < 270) region = 4;
+    else if (theta >= 270 && theta < 360) region = 3;
   }
 
   lastInRegion = inRegion;
@@ -66,8 +65,8 @@ bool RadioInput::JoystickIsDown() {
 }
 
 bool RadioInput::JoystickIsLongPressed() {
-  // TODO
-  return false;
+  bool isLongPressed = millis() - lastDownTime >= LONG_PRESS_TIME;
+  return isLongPressed;
 }
 
 bool RadioInput::IsDown(int pinButton, bool& lastPressed) {

@@ -9,7 +9,7 @@ enum FrequencyBand {
 };
 
 enum RadioState {
-  Normal, Settings
+  Normal, ChoosePreset
 };
 
 // --------------------
@@ -21,10 +21,11 @@ public:
   RadioState state = Normal; // TODO Change visibility if necessary
   int frequency = 977;
   int alternativeFrequency = 800;
+  int preset = 0;
 private:
   bool frequencyChanged = false;
-  int preset = 0;
 public:
+  void Init();
   void SwitchBand();
   bool UpdateCurrentFrequency(int knobDirection);
   void TuneToPreset(int preset);
@@ -46,6 +47,8 @@ private:
   int stickButton;
   bool encoderLastPressed = false;
   bool stickLastPressed = false;
+  bool lastInRegion = false;
+  unsigned long lastDownTime;
 public:
   void Init(int pinA, int pinB, int encoderButton, int pinStickX, int pinStickY, int stickButton);
   void Tick();
@@ -77,6 +80,7 @@ public:
   void Clear();
 private:
   void GetFrequencyTypeInfo(FrequencyBand type, String& modulation, String& unit, int& cursorPosition);
+  void PrintScrollableText();
 };
 
 // --------------------

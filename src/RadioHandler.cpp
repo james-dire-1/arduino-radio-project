@@ -1,7 +1,32 @@
 #include "RadioHeaders.h"
 
+#define INIT_ADDRESS 30
 #define FM_EEPROM_START 10
 #define AM_EEPROM_START 20
+
+#define FM_LOWEST 875
+#define FM_HIGHEST 1079
+#define AM_LOWEST 530
+#define AM_HIGHEST 1710
+
+void RadioHandler::Init() {
+  if (EEPROM.read(INIT_ADDRESS) == 0xff) {
+    EEPROM.update(INIT_ADDRESS, 10);
+
+    for (int j = 1; j <= 2; j++) {
+      int startAddress = (j == 1) ? FM_EEPROM_START : AM_EEPROM_START;
+      int defaultStation = (j == 1) ? FM_LOWEST : AM_LOWEST;
+
+      for (int i = 1; i <= 4; i++) {
+        int address = startAddress + i * sizeof(unsigned short);
+        unsigned short valueStored;
+        EEPROM.get(address, valueStored);
+
+        if (valueStored == 0xffff) StorePresetStation(i, defaultStation);
+      }
+    }
+  }
+}
 
 void RadioHandler::SwitchBand() {
   if (band == FM) band = AM;
@@ -29,14 +54,14 @@ bool RadioHandler::UpdateCurrentFrequency(int knobDirection) {
   if (band == FM) {
 
     frequency += delta * 2;
-    if (frequency < 875) frequency = 1079;
-    else if (frequency > 1079) frequency = 875;
+    if (frequency < FM_LOWEST) frequency = FM_HIGHEST;
+    else if (frequency > FM_HIGHEST) frequency = FM_LOWEST;
 
   } else if (band == AM) {
 
     frequency += delta * 10;
-    if (frequency < 530) frequency = 1710;
-    else if (frequency > 1710) frequency = 530;
+    if (frequency < AM_LOWEST) frequency = AM_HIGHEST;
+    else if (frequency > AM_HIGHEST) frequency = AM_LOWEST;
 
   }
 
@@ -48,15 +73,18 @@ void RadioHandler::TuneToPreset(int preset) {
   this->preset = preset;
 
   int address = GetEEPROMAddress(preset);
-  frequency = (int)EEPROM.read(address);
+  unsigned short station;
+  EEPROM.get(address, station);
+
+  frequency = (int) station;
 }
 
 void RadioHandler::StorePresetStation(int preset, int station) {
   int address = GetEEPROMAddress(preset);
-  EEPROM.update(address, (uint8_t)station);
+  EEPROM.put(address, (unsigned short)station);
 }
 
 int RadioHandler::GetEEPROMAddress(int preset) {
   int startAddress = (band == FM) ? FM_EEPROM_START : AM_EEPROM_START;
-  return startAddress + preset;
+  return startAddress + preset * sizeof(unsigned short);
 }

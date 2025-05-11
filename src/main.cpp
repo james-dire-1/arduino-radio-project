@@ -14,47 +14,50 @@ RadioDisplay display;
 RadioModule module;
 
 void setup() {
-  Serial.begin(9600);
-}
-
-void loop() {
-  Serial.println("VSCode is Working now");
-}
-
-void fake_setup() {
   Wire.begin();//kick off the I2C
   Serial.begin(9600);
 
   input.Init(PIN_A, PIN_B, ENCODER_BUTTON, PIN_STICK_X, PIN_STICK_Y, STICK_BUTTON);
   display.Init(&handler);
+  handler.Init();
 
   display.PrintStationData();
 }
 
-void fake_loop() {
+void loop() {
   input.Tick();
-  display.Tick();
+  display.Tick();  
 
-  if (input.KnobIsDown()) handler.SwitchBand();
+  if (handler.state == Normal) {
+    if (input.KnobIsDown()) handler.SwitchBand();
 
-  int joystickPosition = input.JoystickGetRegion();
-  Serial.print("joystick position ");
-  Serial.println(joystickPosition);
-  if (joystickPosition != 0) handler.TuneToPreset(joystickPosition);
+    int joystickPosition = input.JoystickGetRegion();
+    // if (joystickPosition != 0) handler.TuneToPreset(joystickPosition);
 
-  if (input.JoystickIsDown()) {
-    // TODO
+    if (input.JoystickIsDown()) {
+      // TODO
+    }
+
+    if (input.JoystickIsLongPressed()) {
+      display.Clear();
+      display.ScrollText(true, "Move  joystick  up,  right,  down,  or  left  to  choose  preset  to  overwrite");
+      handler.state = ChoosePreset;
+    }
+
+    int knobDirection = input.KnobGetDirection();
+    bool updated = handler.UpdateCurrentFrequency(knobDirection);
+
+    if (updated) {
+      display.PrintStationData();
+      module.TuneTo(handler.band, handler.frequency);
+    }
   }
 
-  if (input.JoystickIsLongPressed()) {
-    // TODO
-  }
-
-  int knobDirection = input.KnobGetDirection();
-  bool updated = handler.UpdateCurrentFrequency(knobDirection);
-
-  if (updated) {
-    display.PrintStationData();
-    module.TuneTo(handler.band, handler.frequency);
+  else if (handler.state == ChoosePreset) {
+    /* int joystickPosition = input.JoystickGetRegion();
+    if (joystickPosition != 0) {
+      handler.StorePresetStation(joystickPosition, handler.frequency);
+      handler.state = Normal;
+    } */
   }
 }

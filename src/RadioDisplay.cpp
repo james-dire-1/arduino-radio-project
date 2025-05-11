@@ -1,7 +1,7 @@
 #include "RadioHeaders.h"
 
-#define SCROLL_SPEED 1000
-#define INITIAL_SCROLL_DELAY 3000
+#define SCROLL_SPEED 150
+#define INITIAL_SCROLL_DELAY 2000
 
 void RadioDisplay::Init(RadioHandler* handler) {
   this->handler = handler;
@@ -15,26 +15,10 @@ void RadioDisplay::Init(RadioHandler* handler) {
 
 void RadioDisplay::Tick() {
   if (textToPrint != nullptr) {
-    if (millis() - lastTime >= SCROLL_SPEED) {
+    if ((signed long)millis() - (signed long)lastTime >= SCROLL_SPEED) {
       lastTime = millis();
-      currentCharIndex++;
-      
-      int numVisibleChars = min(textToPrint->length() - currentCharIndex, 16);
 
-      if (numVisibleChars <= 0) {
-        if (repeatScroll) {
-          currentCharIndex = 0;
-          return;
-        } else {
-          delete textToPrint;
-          textToPrint = nullptr;
-        }
-      }
-
-      String visibleText = textToPrint->substring(currentCharIndex, currentCharIndex + numVisibleChars);
-
-      lcdPtr->setCursor(0, 1);
-      lcdPtr->print(visibleText);
+      PrintScrollableText();
     }
   }
 }
@@ -69,7 +53,12 @@ void RadioDisplay::PrintStationData() {
   lcd.setCursor(cursorPosition, 0);
   lcd.print(unit);
 
-  // TODO Add stuff for handler.preset
+  int preset = handler->preset;
+  if (preset != 0) {
+    lcd.setCursor(0, 1);
+    lcd.print("Preset ");
+    lcd.print(preset);
+  }
 }
 
 void RadioDisplay::ScrollText(bool repeatScroll, const char* text) {
@@ -77,6 +66,7 @@ void RadioDisplay::ScrollText(bool repeatScroll, const char* text) {
   textToPrint = new String(text);
   currentCharIndex = 0;
   lastTime = millis() + INITIAL_SCROLL_DELAY;
+  PrintScrollableText();
 }
 
 void RadioDisplay::Clear() {
@@ -93,4 +83,25 @@ void RadioDisplay::GetFrequencyTypeInfo(FrequencyBand type, String& modulation, 
     unit = "kHz";
     cursorPosition = 11;
   }
+}
+
+void RadioDisplay::PrintScrollableText() {
+        int numVisibleChars = min(textToPrint->length() - currentCharIndex, 16);
+
+      if (numVisibleChars <= 0) {
+        if (repeatScroll) {
+          currentCharIndex = 0;
+          return;
+        } else {
+          delete textToPrint;
+          textToPrint = nullptr;
+        }
+      }
+
+      String visibleText = textToPrint->substring(currentCharIndex, currentCharIndex + numVisibleChars);
+
+      lcdPtr->setCursor(0, 1);
+      lcdPtr->print(visibleText);
+
+      currentCharIndex++;
 }
