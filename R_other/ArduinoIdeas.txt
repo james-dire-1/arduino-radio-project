@@ -1,0 +1,143 @@
+Arduino ideas
+
+// MIDI Controller
+// Synthesizer Module
+// Posture Corrector
+// Stress Level Monitor
+Radio
+// Water quality thing
+
+Arduino GIGA Wavetable Synthesiser
+https://projecthub.arduino.cc/Arduino_Genuino/arduino-giga-wavetable-synthesiser-737364?_gl=1*zjh7je*_up*MQ..*_ga*MTUzNzk5MTUwNC4xNzQxMzU3ODU3*_ga_NEXN8H46L5*MTc0MTM1Nzg1Ni4xLjAuMTc0MTM1Nzg1Ni4wLjAuNjQ3MjQwNjEz 
+Auduino - Lo-Fi Arduino Synthesizer
+https://www.instructables.com/Auduino-Lo-Fi-Arduino-Synthesizer/ 
+
+DIY ESP32 Internet Radio
+https://projecthub.arduino.cc/zetro/diy-esp32-internet-radio-4353a4?_gl=1*1wqlybc*_up*MQ..*_ga*MTM3NTI5Mjk5NS4xNzQxMzU4NDMx*_ga_NEXN8H46L5*MTc0MTM1ODQzMS4xLjAuMTc0MTM1ODQzMS4wLjAuMTAyMDk0OTk1NA..
+A radio similar to this one seems interesting, but it would have to be modified to use the UNO
+
+Arduino VFO Project with a Large LCD Display
+https://projecthub.arduino.cc/mircemk/arduino-vfo-project-with-a-large-lcd-display-6f8e83?_gl=1*14dnst3*_up*MQ..*_ga*MTY2NTcxNDA2MS4xNzQxMzU4NTcw*_ga_NEXN8H46L5*MTc0MTM1ODU2OS4xLjAuMTc0MTM1ODU2OS4wLjAuODcyODAxNzk2 
+Doesn’t seem to be useful for us, but it seems like it is able to transmit radio waves, so maybe it might be interesting to look at?
+
+Using Arduino to Test Your Water Quality
+https://projecthub.arduino.cc/sharnat/using-arduino-to-test-your-water-quality-3c08dc?_gl=1*2dpwrp*_up*MQ..*_ga*MTcwMzk1ODY0MC4xNzQxMzk1Mjgx*_ga_NEXN8H46L5*MTc0MTM5NTI4MS4xLjAuMTc0MTM5NTI4MS4wLjAuOTgzODAzOTU. 
+
+BMP280: Measure Temperature, Pressure and Altitude
+https://projecthub.arduino.cc/SurtrTech/bmp280-measure-temperature-pressure-and-altitude-6002cd?_gl=1*3n74qq*_up*MQ..*_ga*MTQwNDgwNjU5NC4xNzQxMzk1NDY0*_ga_NEXN8H46L5*MTc0MTM5NTQ2My4xLjAuMTc0MTM5NTQ2My4wLjAuMzE4ODU1MTUw
+
+SENSORS
+1: Joystick
+14: Touch sensor?
+22: Button
+26: Buzzer?
+32: Passive buzzer?
+34: Rotary encoder
+
+NOTES- Apparently volume control can be handled directly on the amplifier
+
+MAIN PARTS
+Main microcontroller: Arduino UNO
+Main radio module: Si4732
+Speaker: 
+Screen: LCD screen
+
+On/off function: 
+Volume function: 
+AM/FM toggle function:
+Tuning function:
+Presets function:
+Scan function:
+Set presets function:
+
+Amplifier: a 5-volt class D amplifier/TDA7297?
+Internal volume manager: MCP4151 (potentiometer)
+Storage for presets and last station: EEPROM which is built into the UNO (no SD card necessary)
+Antenna: telescopic antenna
+
+OTHER PARTS to consider but probably will not be used
+Main radio module: TEA5767 (x3) - only supports FM
+Amplifier: TDA1905 - too complicated to use
+
+KNOBS
+1-turn potentiometer
+10-turn potentiometer
+
+// VIDEOS
+// https://www.youtube.com/watch?v=RqyhvlMKt14
+// https://www.youtube.com/watch?v=n1hPj2wfsnA 
+
+// Si4732
+// Si4735
+// TEA5767
+// TEA5768
+// TEF6686
+
+——
+
+Why It is better to use the TEF6686 instead of the Si4732:
+
+Si4732 is actually just a chip. There are not really any modules that are available for our case.
+Si4732 does have some breakout boards. At first, I thought these were the actual modules. Then, I realized that they were something that required a lot of soldering to get working. You can either get a breakout board for the Si4732 by looking at a GitHub instruction page and making one yourself, by getting it on PCBWay, or by buying it off a retailer already built.
+Si4732 does seem to have some modules, but not any that are useful for our needs. One module already includes an Arduino Nano or something similar with it, which means the module is already a fully functional radio. Another one seemed to be promising, as it had an audio jack similar to the one seen on the TEA5767, but there was a space fitted specifically for an Arduino Nano or something similar, which was also not what we needed. A third one I saw looked like a module (at first I had thought it was a raw chip, but it wasn’t), but it was a module specifically for use with a specific type of walkie talkie from a specific manufacturer. I got suspicious of this when I noticed that the pin locations/soldering locations on the module didn’t even have any indications as to what each of them were for.
+
+Also, if you manage to get one of those breakout boards for the Si4732, there seems to be a lot of work that needs to be done to get it to work with an Arduino. There seems to be a lot of crazy soldering and such. Also, the pin indications on the raw chip don’t even match nicely with the pin indications of the breakout board, which just added to the confusion. Also, the third-party library that is supposed to go with this chip seemed very intimidating to use, due to our inexperience. If we don’t want to use the library, then we would have to read through the data sheet, which is something I really don’t want to do (it is longer than both the TEA5767 and TEF6686’s data sheets). It didn’t seem right to base everything on our trusting the library, since we should have some understanding of what is going on, even if we are using a library. With the TEF6686 however, I found a library that seems straightforward to understand, and once it is understood, we could even understand more deeply the I2C protocol that takes place between the Arduino and the TEF6686. It also helps that the data sheet for the TEF6686 is much more simpler to understand, and is written in a very straightforward way. It is also really nice that the TEF6686 library is very lightweight; it only consists of a few files, so it doesn’t feel like we are leaving all of the work to the library in question.
+Also, the schematic for setting up the Si4732 breakout board with the Arduino seems ridiculously complicated to understand. The schematic for setting up the TEA5767 module with the Arduino, and the schematic for setting up the TEF6686 module with the Arduino, seem very straightforward to use, and intuitively make sense in the context of I2C (the Si4732 schematic seemed to be all over the place and impossible to understand). Although the TEF6686 schematic does seem slightly more involved than the TEA5767 schematic, it is not by much.
+
+One good alternative we could have used was the complete module of the Si4732 created by Sparkfun. It seemed to be a complete module and everything. Unfortunately (or fortunately, I don’t know yet), it got discontinued.
+
+We might decide to implement our radio with the TEA5767 before trying out the TEF6686, just because there are already many examples online of people using the TEA5767 (such as in YouTube videos), and so there would be a lot of help and reference should we need it. Also, we already have perfectly working code from a YouTuber if we use the TEA5767; if we use the TEF6686, we would have to rely on the corresponding library at first, which we aren’t even sure would work. However, it would be great to switch to the TEF6686 eventually, just because it also supports AM, which the TEA5767 doesn’t.
+
+Additional functions:
+
+Continuous scan
+Settings options
+	continuous tuning
+	about section
+Additional AM/FM button, as pressing on the knob will just show more information
+
+Links:
+
+Websites for inspiration
+https://www.instructables.com/Simple-TEF6686-Arduino-PC-AM-FM-Radio-Receiver/ 
+https://www.instructables.com/All-Band-Receiver-With-Si4735-FM-RDS-AM-and-SSB-Wi/
+
+Videos for inspiration
+https://www.youtube.com/watch?v=JZ5yPdoPooU&t=654s 
+https://www.youtube.com/watch?v=RqyhvlMKt14 
+https://www.youtube.com/watch?v=Xy7k_ZvcVhU 
+https://www.youtube.com/watch?v=n1hPj2wfsnA 
+
+Instructional videos and links
+https://www.youtube.com/watch?v=6IAkYpmA1DQ 
+https://www.youtube.com/watch?v=wEbGhYjn4QI 
+https://www.youtube.com/watch?v=V1txmR8GXzE 
+https://www.youtube.com/watch?v=gPLpPFmv-Zc 
+https://gammon.com.au/forum/?id=11488&reply=6#reply6 
+
+Instructables
+https://www.instructables.com/Powering-Arduino-with-a-Battery/ 
+
+
+Libraries
+TEA5767
+https://docs.arduino.cc/libraries/radio/?fbclid=IwAR0RHHBBque7rx_zP_Ns2fzSN8FPqqi5Pc9K1L9mtPytmW70RFdRn7JaiW4 
+https://docs.arduino.cc/libraries/arduinotea5767/ 
+TEF6686
+https://github.com/ciuri/TEF6686Library 
+Miscellaneous
+https://github.com/RTVDXRO/TEF6686-AM_FM_RDS-Radio/blob/master/UserManualTEF668X.pdf 
+https://github.com/jgromes/RadioLib 
+For LCDs
+https://github.com/duinoWitchery/hd44780/tree/master 
+Rotary Encoders
+https://github.com/mathertel/RotaryEncoder/tree/master 
+
+Radio modules
+https://www.amazon.ca/76-108MHZ-TEA5767-Stereo-Module-Antenna/dp/B074TC3VLN/ref=sr_1_1_sspa?crid=2YNKEZZ28P125&dib=eyJ2IjoiMSJ9.2cjKR1-BCNN_U2Z5yJIWdRGtgAPlwgFicTK7thPMDm5scFjKpwn6jyz9s1LFkkjd475wKVXpzyKifkD59PZPZeV-Q-1rdC4qOU6KO9CeWhUeLvrIxyDzDgcTHMWhQhI36FKl7w8cWLyv2fTq0wYZbLYeJLa4Vz0EpPQeUWSGj4tqM82ySiym4os269oSqU6QZRGrWnOqfz_pYnz-4k0HatG7Amn0ZlO46qg0sq_yNnl7vJXy8x7WmxKVvVx3arxjKlFIcn2JA_oQAwF_-_WtvxLh02_3t7fcqxT0elZEdKw.ToWCq7N0d50sIIXCUDgJ4rKvQYn39rcmFmQyd-jQ6ag&dib_tag=se&keywords=tea5767&qid=1742009736&sprefix=tea5767%2Caps%2C93&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1 
+https://www.amazon.ca/Radio-Module-Main-chip-TEF6686/dp/B0DXF17PTN/ref=sr_1_1?crid=3NMCHPRQDFWFM&dib=eyJ2IjoiMSJ9.ezVCwBQF6oF9TuH-c0EqHXa3uHU0ACl_-njZB7G6r_1JOLo1Uwt2n4r7Dd-viejdMDMpOfydopjvweT9XcrEMQ.t-G8fyT30vtlDcPw637mxxseCZsh1JW4qNLRAXvqwak&dib_tag=se&keywords=tef6686+module&qid=1742009895&sprefix=tef6686+module%2Caps%2C82&sr=8-1 
+
+Amplifiers
+https://www.amazon.ca/DEVMO-TDA7297-Digital-Amplifier-Channel/dp/B07T5L5GY4 
+https://www.amazon.ca/Willwin-PAM8403-Digital-Stereo-Amplifier/dp/B075ZR6QNX 
+https://www.amazon.ca/Ganasome-Times-LM386-Amplifier-Module/dp/B0CW193LVD/ref=sr_1_21_sspa?crid=1FOPB474LENQG&dib=eyJ2IjoiMSJ9.QNoofcqIkFHnb7cZfVHDsOkdhYSYKrdMhnBqSIHF6srWe3h-Exh_Juoyo4brwaA9BsiTc_IaMHvQTfOvn42iBRHrmXcgxHzmdux9S3BQJ9_VynuKLjX5uRKr8b7emuGnvjrg9jB-Myzv4_12IzIlbn0y4DNIJylnFCCszm9340KWTVDt1ZrhX9cUbJDpL0AoT49ylUgvQ9KQ_dxyo5ewdvwnqKnMOTRSuKd3Hy0qh0Y5YPIec3biwRKE_-xj5CgVF1TpsbvaWzjCaQqoe_GuZcBiB-al1S2jt47QoUPn68E.6LRqmr6DU8u8bGqJOGKw_ytt404n2c8d0CFOI1hjW6E&dib_tag=se&keywords=speaker+for+arduino&qid=1741965171&sprefix=speaker+for+arduino%2Caps%2C72&sr=8-21-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9tdGY&psc=1 

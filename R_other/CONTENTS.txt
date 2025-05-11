@@ -1,0 +1,12 @@
+This folder is for miscellaneous files that are related to the radio project, and are only in
+this repository for completeness' sake.
+
+Files in this folder (R_other):
+
+schematic_final_WVFZMbBmqV.jpg
+    Schematic file we might use if we want to eventually use the TEF6686 radio module.
+    From https://www.instructables.com/Simple-TEF6686-Arduino-PC-AM-FM-Radio-Receiver/ 
+
+ArduinoIdeas.txt
+    Notes document used very early on in the project to organize ideas. This file was created
+    before the radio idea was decided upon, so there are also other ideas listed.

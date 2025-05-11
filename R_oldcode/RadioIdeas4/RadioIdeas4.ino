@@ -14,14 +14,6 @@ RadioDisplay display;
 RadioModule module;
 
 void setup() {
-  Serial.begin(9600);
-}
-
-void loop() {
-  Serial.println("VSCode is Working now");
-}
-
-void fake_setup() {
   Wire.begin();//kick off the I2C
   Serial.begin(9600);
 
@@ -31,7 +23,7 @@ void fake_setup() {
   display.PrintStationData();
 }
 
-void fake_loop() {
+void loop() {
   input.Tick();
   display.Tick();
 
