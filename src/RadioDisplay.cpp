@@ -61,12 +61,22 @@ void RadioDisplay::PrintStationData() {
   }
 }
 
+void RadioDisplay::PrintText(const char* text) {
+  lcdPtr->setCursor(0, 1);
+  lcdPtr->print(text);
+}
+
 void RadioDisplay::ScrollText(bool repeatScroll, const char* text) {
   this->repeatScroll = repeatScroll;
   textToPrint = new String(text);
   currentCharIndex = 0;
   lastTime = millis() + INITIAL_SCROLL_DELAY;
   PrintScrollableText();
+}
+
+void RadioDisplay::StopScrollText() {
+  delete textToPrint;
+  textToPrint = nullptr;
 }
 
 void RadioDisplay::Clear() {

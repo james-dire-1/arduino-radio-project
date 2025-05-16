@@ -9,7 +9,7 @@ enum FrequencyBand {
 };
 
 enum RadioState {
-  Normal, ChoosePreset
+  Normal, ChoosePreset, PresetChosenConfirmation
 };
 
 // --------------------
@@ -76,7 +76,9 @@ public:
   void Init(RadioHandler* handler);
   void Tick();
   void PrintStationData();
+  void PrintText(const char* text);
   void ScrollText(bool repeatScroll, const char* text);
+  void StopScrollText();
   void Clear();
 private:
   void GetFrequencyTypeInfo(FrequencyBand type, String& modulation, String& unit, int& cursorPosition);

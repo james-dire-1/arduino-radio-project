@@ -26,6 +26,8 @@ void setup() {
   display.PrintStationData();
 }
 
+unsigned long lastTime;
+
 void loop() {
   input.Tick();
   display.Tick();  
@@ -34,13 +36,14 @@ void loop() {
     if (input.KnobIsDown()) handler.SwitchBand();
 
     int joystickPosition = input.JoystickGetRegion();
-    // if (joystickPosition != 0) handler.TuneToPreset(joystickPosition);
+    if (joystickPosition != 0) handler.TuneToPreset(joystickPosition);
 
     if (input.JoystickIsDown()) {
       // TODO
     }
 
     if (input.JoystickIsLongPressed()) {
+      Serial.println("THERE IS A LONG PRESS");
       display.Clear();
       display.ScrollText(true, "Move  joystick  up,  right,  down,  or  left  to  choose  preset  to  overwrite");
       handler.state = ChoosePreset;
@@ -56,10 +59,22 @@ void loop() {
   }
 
   else if (handler.state == ChoosePreset) {
-    /* int joystickPosition = input.JoystickGetRegion();
+    int joystickPosition = input.JoystickGetRegion();
     if (joystickPosition != 0) {
       handler.StorePresetStation(joystickPosition, handler.frequency);
+      display.Clear();
+      display.PrintText("PRESET CHOSEN");
+      handler.state = PresetChosenConfirmation;
+      display.StopScrollText();
+      lastTime = millis();
+      // Clean the ordering here. This is really messy now
+    }
+  }
+
+  else if (handler.state == PresetChosenConfirmation) {
+    Serial.println("We have chosen our preset");
+    if ((signed long)millis() - (signed long)lastTime >= 3000) {
       handler.state = Normal;
-    } */
+    }
   }
 }
