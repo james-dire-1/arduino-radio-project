@@ -25,39 +25,60 @@ void setup() {
 }
 
 void loop() {
+  static unsigned long lastTime;
+
   input.Tick();
   display.Tick();  
+
+  Serial.println("looping");
 
   if (handler.state == Normal) {
     if (input.KnobIsDown()) handler.SwitchBand();
 
     int joystickPosition = input.JoystickGetRegion();
-    // if (joystickPosition != 0) handler.TuneToPreset(joystickPosition);
+    if (joystickPosition != 0) {
+      // Serial.print("joystick position ");
+      // Serial.println(joystickPosition);
+      handler.TuneToPreset(joystickPosition);
+    }
 
     if (input.JoystickIsDown()) {
       // TODO
     }
 
     if (input.JoystickIsLongPressed()) {
+      handler.state = ChoosePreset;
       display.Clear();
       display.ScrollText(true, "Move  joystick  up,  right,  down,  or  left  to  choose  preset  to  overwrite");
-      handler.state = ChoosePreset;
     }
 
     int knobDirection = input.KnobGetDirection();
     bool updated = handler.UpdateCurrentFrequency(knobDirection);
 
     if (updated) {
+      Serial.println("updated");
       display.PrintStationData();
       module.TuneTo(handler.band, handler.frequency);
     }
   }
 
   else if (handler.state == ChoosePreset) {
-    /* int joystickPosition = input.JoystickGetRegion();
+    int joystickPosition = input.JoystickGetRegion();
     if (joystickPosition != 0) {
+      handler.state = PresetChosenConfirmation;
       handler.StorePresetStation(joystickPosition, handler.frequency);
+
+      display.StopScrollText();
+      display.Clear();
+      display.PrintText(true, "Preset saved!");
+
+      lastTime = millis();
+    }
+  }
+
+  else if (handler.state == PresetChosenConfirmation) {
+    if ((signed long)millis() - (signed long)lastTime >= display.CONFIRMATION_TIME) {
       handler.state = Normal;
-    } */
+    }
   }
 }

@@ -9,7 +9,7 @@ enum FrequencyBand {
 };
 
 enum RadioState {
-  Normal, ChoosePreset
+  Normal, ChoosePreset, PresetChosenConfirmation
 };
 
 // --------------------
@@ -18,7 +18,7 @@ class RadioHandler
 {
 public:
   FrequencyBand band = FM;
-  RadioState state = Normal; // TODO Change visibility if necessary
+  RadioState state = Normal;
   int frequency = 977;
   int alternativeFrequency = 800;
   int preset = 0;
@@ -65,6 +65,8 @@ private:
 
 class RadioDisplay
 {
+public:
+  const long CONFIRMATION_TIME = 3000;
 private:
   hd44780_I2Cexp* lcdPtr = nullptr;
   RadioHandler* handler;
@@ -76,7 +78,9 @@ public:
   void Init(RadioHandler* handler);
   void Tick();
   void PrintStationData();
+  void PrintText(bool centered, const char* text);
   void ScrollText(bool repeatScroll, const char* text);
+  void StopScrollText();
   void Clear();
 private:
   void GetFrequencyTypeInfo(FrequencyBand type, String& modulation, String& unit, int& cursorPosition);

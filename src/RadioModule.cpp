@@ -5,6 +5,8 @@ void RadioModule::TuneTo(FrequencyBand band, int frequency) {
     float trueFrequency = (float)frequency / 10.0f;
     setFrequency(trueFrequency);
   }
+
+  Serial.println("Reached the end of TuneTo");
 }
 
 void RadioModule::setFrequency(float frequency) {

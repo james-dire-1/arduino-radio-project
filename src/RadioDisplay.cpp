@@ -3,6 +3,8 @@
 #define SCROLL_SPEED 150
 #define INITIAL_SCROLL_DELAY 2000
 
+#define SPACE_ROW "                "
+
 void RadioDisplay::Init(RadioHandler* handler) {
   this->handler = handler;
   lcdPtr = new hd44780_I2Cexp();
@@ -24,10 +26,16 @@ void RadioDisplay::Tick() {
 }
 
 void RadioDisplay::PrintStationData() {
+  Serial.println("AB");
+
   Clear();
+
+  Serial.println("A");
 
   FrequencyBand band = handler->band;
   int frequency = handler->frequency;
+
+  Serial.println("B");
 
   String freq = String(frequency);
   if (band == FM) {
@@ -35,23 +43,35 @@ void RadioDisplay::PrintStationData() {
     freq = freq.substring(0, length - 1) + '.' + freq.substring(length - 1, length);
   }
 
+  Serial.println("C");
+
   String modulation;
   String unit;
   int cursorPosition;
   GetFrequencyTypeInfo(band, modulation, unit, cursorPosition);
 
+  Serial.println("D");
+
   hd44780_I2Cexp lcd = *lcdPtr;
+
+  Serial.println("E");
 
   lcd.setCursor(0, 0);
   lcd.print(modulation);
+
+  Serial.println("F");
 
   lcd.setCursor(6, 0);
   if ((freq.length() == 4 && band == FM) || (freq.length() == 3 && band == AM))
     lcd.print(" ");
   lcd.print(freq);
 
+  Serial.println("G");
+
   lcd.setCursor(cursorPosition, 0);
   lcd.print(unit);
+
+  Serial.println("H");
 
   int preset = handler->preset;
   if (preset != 0) {
@@ -59,6 +79,22 @@ void RadioDisplay::PrintStationData() {
     lcd.print("Preset ");
     lcd.print(preset);
   }
+
+  Serial.println("I");
+
+  Serial.println("Reached the end of PrintStationData");
+}
+
+void RadioDisplay::PrintText(bool centered, const char* text) {
+  String toPrint = String(text);
+
+  int startPosition = 0;
+  if (centered) {
+    startPosition = (16 - toPrint.length()) / 2;
+  }
+
+  lcdPtr->setCursor(startPosition, 1);
+  lcdPtr->print(text);
 }
 
 void RadioDisplay::ScrollText(bool repeatScroll, const char* text) {
@@ -69,8 +105,25 @@ void RadioDisplay::ScrollText(bool repeatScroll, const char* text) {
   PrintScrollableText();
 }
 
+void RadioDisplay::StopScrollText() {
+  delete textToPrint;
+  textToPrint = nullptr;
+}
+
 void RadioDisplay::Clear() {
-  lcdPtr->clear();
+  Serial.println("ABC");
+
+  // lcdPtr->clear();
+  Serial.println("001");
+  lcdPtr->setCursor(0, 0);
+  Serial.println("002");
+  lcdPtr->print(SPACE_ROW);
+  Serial.println("003");
+  lcdPtr->setCursor(0, 0);
+  Serial.println("003");
+  lcdPtr->print(SPACE_ROW);
+
+  Serial.println("ABCD");
 }
 
 void RadioDisplay::GetFrequencyTypeInfo(FrequencyBand type, String& modulation, String& unit, int& cursorPosition) {
@@ -86,22 +139,22 @@ void RadioDisplay::GetFrequencyTypeInfo(FrequencyBand type, String& modulation, 
 }
 
 void RadioDisplay::PrintScrollableText() {
-        int numVisibleChars = min(textToPrint->length() - currentCharIndex, 16);
+  int numVisibleChars = min(textToPrint->length() - currentCharIndex, 16);
 
-      if (numVisibleChars <= 0) {
-        if (repeatScroll) {
-          currentCharIndex = 0;
-          return;
-        } else {
-          delete textToPrint;
-          textToPrint = nullptr;
-        }
-      }
+  if (numVisibleChars <= 0) {
+    if (repeatScroll) {
+      currentCharIndex = 0;
+      return;
+    } else {
+      delete textToPrint;
+      textToPrint = nullptr;
+    }
+  }
 
-      String visibleText = textToPrint->substring(currentCharIndex, currentCharIndex + numVisibleChars);
+  String visibleText = textToPrint->substring(currentCharIndex, currentCharIndex + numVisibleChars);
 
-      lcdPtr->setCursor(0, 1);
-      lcdPtr->print(visibleText);
+  lcdPtr->setCursor(0, 1);
+  lcdPtr->print(visibleText);
 
-      currentCharIndex++;
+  currentCharIndex++;
 }

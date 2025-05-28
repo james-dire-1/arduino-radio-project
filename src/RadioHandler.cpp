@@ -29,14 +29,14 @@ void RadioHandler::Init() {
 }
 
 void RadioHandler::SwitchBand() {
+  frequencyChanged = true;
+
   if (band == FM) band = AM;
   else if (band == AM) band = FM;
 
   int temporaryFrequency = frequency;
   frequency = alternativeFrequency;
   alternativeFrequency = temporaryFrequency;
-
-  frequencyChanged = true;
 }
 
 bool RadioHandler::UpdateCurrentFrequency(int knobDirection) {
