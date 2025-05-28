@@ -15,6 +15,7 @@ RadioModule module;
 
 void setup() {
   Wire.begin();//kick off the I2C
+  Wire.setClock(50000);
   Serial.begin(9600);
 
   input.Init(PIN_A, PIN_B, ENCODER_BUTTON, PIN_STICK_X, PIN_STICK_Y, STICK_BUTTON);
@@ -24,40 +25,55 @@ void setup() {
   display.PrintStationData();
 }
 
+unsigned long lastTimeDebugging;
+int count;
+
 void loop() {
   static unsigned long lastTime;
 
   input.Tick();
   display.Tick();  
 
-  Serial.println("looping");
+  // Serial.println("looping");
 
   if (handler.state == Normal) {
     if (input.KnobIsDown()) handler.SwitchBand();
 
-    int joystickPosition = input.JoystickGetRegion();
-    if (joystickPosition != 0) {
+    // int joystickPosition = input.JoystickGetRegion();
+    // if (joystickPosition != 0) {
       // Serial.print("joystick position ");
       // Serial.println(joystickPosition);
-      handler.TuneToPreset(joystickPosition);
-    }
+      // handler.TuneToPreset(joystickPosition);
+    // }
 
-    if (input.JoystickIsDown()) {
+    // if (input.JoystickIsDown()) {
       // TODO
-    }
+    // }
 
-    if (input.JoystickIsLongPressed()) {
+    /* if (input.JoystickIsLongPressed()) {
       handler.state = ChoosePreset;
       display.Clear();
       display.ScrollText(true, "Move  joystick  up,  right,  down,  or  left  to  choose  preset  to  overwrite");
-    }
+    } */
 
-    int knobDirection = input.KnobGetDirection();
-    bool updated = handler.UpdateCurrentFrequency(knobDirection);
+    // int knobDirection = input.KnobGetDirection();
+    // bool updated = handler.UpdateCurrentFrequency(knobDirection);
+
+    int fakeKnobDirection = 0;
+    if ((signed long)millis() - (signed long)lastTimeDebugging >= 1000) {
+      lastTimeDebugging = millis();
+
+      Serial.print("We are changing station ");
+      Serial.println(count);
+      fakeKnobDirection = 1;
+
+      count++;
+    }
+    bool updated = handler.UpdateCurrentFrequency(fakeKnobDirection);
 
     if (updated) {
-      Serial.println("updated");
-      display.PrintStationData();
+      // Serial.println("updated");
+      // display.PrintStationData();
       module.TuneTo(handler.band, handler.frequency);
     }
   }
