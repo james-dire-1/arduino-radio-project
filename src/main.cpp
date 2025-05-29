@@ -15,12 +15,14 @@ RadioModule module;
 
 void setup() {
   Wire.begin();//kick off the I2C
-  Wire.setClock(50000);
+  // Wire.setClock(50000);
   Serial.begin(9600);
 
   input.Init(PIN_A, PIN_B, ENCODER_BUTTON, PIN_STICK_X, PIN_STICK_Y, STICK_BUTTON);
   display.Init(&handler);
   handler.Init();
+
+  handler.CheckForPreset();
 }
 
 void loop() {
@@ -30,7 +32,7 @@ void loop() {
   display.Tick();
 
   if (handler.state == Normal) {
-    if (input.KnobIsDown()) handler.SwitchBand();
+    // if (input.KnobIsDown()) handler.SwitchBand();
 
     int joystickPosition = input.JoystickGetRegion();
     if (joystickPosition != 0) handler.TuneToPreset(joystickPosition);
@@ -43,6 +45,7 @@ void loop() {
 
     int knobDirection = input.KnobGetDirection();
     bool updated = handler.UpdateCurrentFrequency(knobDirection);
+    handler.CheckForPreset();
 
     if (updated) {
       display.PrintStationData();

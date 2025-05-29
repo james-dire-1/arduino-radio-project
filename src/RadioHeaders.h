@@ -24,17 +24,18 @@ public:
   int preset = 0;
 private:
   bool frequencyChanged = false;
+  int savedPresets[4];
 public:
   void Init();
   void SwitchBand();
   bool UpdateCurrentFrequency(int knobDirection);
+  void CheckForPreset();
   void TuneToPreset(int preset);
   int RetreivePresetStation(int preset);
   void StorePresetStation(int preset, int station);
 private:
   int RetrievePresetStation(int preset);
   int GetEEPROMAddress(int preset);
-  int savedPresets[4];
 };
 
 // --------------------
@@ -64,7 +65,6 @@ public:
   bool JoystickIsLongPressed();
   int JoystickGetRegion();
 private:
-  void UpdateInput(int pinButton, bool& pressed, bool& lastPressed);
   bool IsDown(bool pressed, bool lastPressed);
 };
 

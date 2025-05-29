@@ -60,9 +60,8 @@ bool RadioHandler::UpdateCurrentFrequency(int knobDirection) {
 
   int delta = knobDirection;
 
-  if (delta == 0) {
+  if (delta == 0)
     return false;
-  }
 
   preset = 0;
 
@@ -80,16 +79,19 @@ bool RadioHandler::UpdateCurrentFrequency(int knobDirection) {
 
   }
 
+  if (band == FM)
+    EEPROM.put(STANDBY_STATION_ADDRESS, (unsigned short)frequency);
+
+  return true;
+}
+
+void RadioHandler::CheckForPreset() {
   for (int i = 0; i < 4; i++) {
     if (savedPresets[i] == frequency) {
       preset = i + 1;
       break;
     }
   }
-
-  EEPROM.put(STANDBY_STATION_ADDRESS, (unsigned short)frequency);
-
-  return true;
 }
 
 void RadioHandler::TuneToPreset(int preset) {

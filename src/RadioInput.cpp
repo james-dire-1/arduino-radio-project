@@ -16,6 +16,9 @@ void RadioInput::Init(int pinA, int pinB, int knobButton, int pinStickX, int pin
 }
 
 void RadioInput::Tick() {
+  knobLastPressed = knobPressed;
+  stickLastPressed = stickPressed;
+
   encoder->tick();
 
   if (!stickLastPressed)
@@ -24,14 +27,12 @@ void RadioInput::Tick() {
   if (!knobLastPressed)
     knobLastDownTime = millis();
 
-  UpdateInput(knobButton, knobPressed, knobLastPressed);
-  UpdateInput(stickButton, stickPressed, stickLastPressed);
+  knobPressed = digitalRead(knobButton) == LOW;
+  stickPressed = digitalRead(stickButton) == LOW;
 }
 
 bool RadioInput::KnobIsDown() {
   bool isDown = IsDown(knobPressed, knobLastPressed);
-  Serial.print("isDown ");
-  Serial.println(isDown);
   return isDown;
 }
 
@@ -81,11 +82,6 @@ int RadioInput::JoystickGetRegion() {
   lastInRegion = inRegion;
 
   return region;
-}
-
-void RadioInput::UpdateInput(int pinButton, bool& pressed, bool& lastPressed) {
-  pressed = digitalRead(pinButton) == LOW;
-  lastPressed = pressed;
 }
 
 bool RadioInput::IsDown(bool pressed, bool lastPressed) {
