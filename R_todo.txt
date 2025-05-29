@@ -4,7 +4,6 @@ Take a good look of everything in the cloned repository
 Credit setFrequency() function from Kevin Darrah if we decide to keep it
 Upload progress videos onto the GitHub repository 
 Maybe optimize station changing, if possible?
-Put the code through CLion to check if any improvements can be made 
 Maybe upload videos onto the repository
 Maybe upload circuit instructions onto the repository 
 Maybe upload box design onto the repository 

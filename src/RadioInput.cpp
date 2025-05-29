@@ -32,13 +32,11 @@ void RadioInput::Tick() {
 }
 
 bool RadioInput::KnobIsDown() {
-  bool isDown = IsDown(knobPressed, knobLastPressed);
-  return isDown;
+  return knobPressed && !knobLastPressed;
 }
 
 bool RadioInput::KnobIsLongPressed() {
-  bool isLongPressed = millis() - knobLastDownTime >= LONG_PRESS_TIME;
-  return isLongPressed;
+  return millis() - knobLastDownTime >= LONG_PRESS_TIME;
 }
 
 int RadioInput::KnobGetDirection() {
@@ -46,20 +44,19 @@ int RadioInput::KnobGetDirection() {
 }
 
 bool RadioInput::JoystickIsDown() {
-  return IsDown(stickPressed, stickLastPressed);
+  return stickPressed && !stickLastPressed;
 }
 
 bool RadioInput::JoystickIsLongPressed() {
-  bool isLongPressed = millis() - joystickLastDownTime >= LONG_PRESS_TIME;
-  return isLongPressed;
+  return millis() - joystickLastDownTime >= LONG_PRESS_TIME;
 }
 
 int RadioInput::JoystickGetRegion() {
-  int realX = analogRead(pinStickX);
-  int realY = analogRead(pinStickY);
+  int rawX = analogRead(pinStickX);
+  int rawY = analogRead(pinStickY);
 
-  float x = (realX / 1023.0f) * 2 - 1;
-  float y = (abs(realY - 1023) / 1023.0f) * 2 - 1;
+  float x = (rawX / 1023.0f) * 2 - 1;
+  float y = (abs(rawY - 1023) / 1023.0f) * 2 - 1;
 
   float r = sqrt(x * x + y * y);
   float theta = atan2(y, x) * 180 / PI;
@@ -71,8 +68,6 @@ int RadioInput::JoystickGetRegion() {
   int region = 0;
 
   if (inRegion && !lastInRegion) {
-    lastInRegion = true;
-
     if (theta >= 0 && theta < 90) region = 2;
     else if (theta >= 90 && theta < 180) region = 1;
     else if (theta >= 180 && theta < 270) region = 4;
@@ -82,9 +77,4 @@ int RadioInput::JoystickGetRegion() {
   lastInRegion = inRegion;
 
   return region;
-}
-
-bool RadioInput::IsDown(bool pressed, bool lastPressed) {
-  bool isDown = pressed && !lastPressed;
-  return isDown;
 }

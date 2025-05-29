@@ -17,8 +17,8 @@ enum RadioState {
 class RadioHandler
 {
 public:
-  FrequencyBand band = FM;
   RadioState state = Normal;
+  FrequencyBand band = FM;
   int frequency = 977;
   int alternativeFrequency = 800;
   int preset = 0;
@@ -33,7 +33,6 @@ public:
   bool UpdateCurrentFrequency(int knobDirection);
   void CheckForPreset();
   void TuneToPreset(int preset);
-  int RetreivePresetStation(int preset);
   void StorePresetStation(int preset, int station);
 private:
   int RetrievePresetStation(int preset);
@@ -66,8 +65,6 @@ public:
   bool JoystickIsDown();
   bool JoystickIsLongPressed();
   int JoystickGetRegion();
-private:
-  bool IsDown(bool pressed, bool lastPressed);
 };
 
 // --------------------

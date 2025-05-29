@@ -3,8 +3,6 @@
 #define SCROLL_SPEED 150
 #define INITIAL_SCROLL_DELAY 2000
 
-#define SPACE_ROW "                "
-
 void RadioDisplay::Init(RadioHandler* handler) {
   this->handler = handler;
   lcdPtr = new hd44780_I2Cexp();
@@ -30,6 +28,7 @@ void RadioDisplay::PrintStationData() {
 
   FrequencyBand band = handler->band;
   int frequency = handler->frequency;
+  int preset = handler->preset;
 
   String freq = String(frequency);
   if (band == FM) {
@@ -55,7 +54,6 @@ void RadioDisplay::PrintStationData() {
   lcd.setCursor(cursorPosition, 0);
   lcd.print(unit);
 
-  int preset = handler->preset;
   if (preset != 0) {
     lcd.setCursor(0, 1);
     lcd.print("Preset ");
@@ -78,8 +76,10 @@ void RadioDisplay::PrintText(int row, bool centered, const char* text) {
 void RadioDisplay::ScrollText(bool repeatScroll, const char* text) {
   this->repeatScroll = repeatScroll;
   textToPrint = new String(text);
+
   currentCharIndex = 0;
   lastTime = millis() + INITIAL_SCROLL_DELAY;
+
   PrintScrollableText();
 }
 
