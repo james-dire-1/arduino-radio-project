@@ -25,6 +25,8 @@ public:
 private:
   bool frequencyChanged = false;
   int savedPresets[4];
+  unsigned long stationChangedLastTime = 0;
+  bool standbyStationSaved = false;
 public:
   void Init();
   void SwitchBand();
@@ -53,8 +55,8 @@ private:
   bool stickPressed = false;
   bool stickLastPressed = false;
   bool lastInRegion = false;
-  unsigned long knobLastDownTime;
-  unsigned long joystickLastDownTime;
+  unsigned long knobLastDownTime = 0;
+  unsigned long joystickLastDownTime = 0;
 public:
   void Init(int pinA, int pinB, int knobButton, int pinStickX, int pinStickY, int stickButton);
   void Tick();
@@ -80,7 +82,7 @@ private:
   String* textToPrint = nullptr;
   bool repeatScroll;
   int currentCharIndex;
-  unsigned long lastTime;
+  unsigned long lastTime = 0;
 public:
   void Init(RadioHandler* handler);
   void Tick();

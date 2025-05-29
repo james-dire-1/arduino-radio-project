@@ -15,7 +15,6 @@ RadioModule module;
 
 void setup() {
   Wire.begin();//kick off the I2C
-  // Wire.setClock(50000);
   Serial.begin(9600);
 
   input.Init(PIN_A, PIN_B, ENCODER_BUTTON, PIN_STICK_X, PIN_STICK_Y, STICK_BUTTON);

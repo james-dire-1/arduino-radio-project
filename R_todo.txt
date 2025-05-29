@@ -5,6 +5,9 @@ Credit setFrequency() function from Kevin Darrah if we decide to keep it
 Upload progress videos onto the GitHub repository 
 Maybe optimize station changing, if possible?
 Put the code through CLion to check if any improvements can be made 
+Maybe upload videos onto the repository
+Maybe upload circuit instructions onto the repository 
+Maybe upload box design onto the repository 
 Make a COMPLETE hardware list, and add these to the list:
 https://www.amazon.ca/Proto-Advantage-Pitch-Changer-2-00-Conversion/dp/B097YS5ZMQ/ref=sr_1_1?crid=2S0DTJT9V7RXL&dib=eyJ2IjoiMSJ9.GQmcDMU4WWagCJnnHcueSL-QUuIPw8NRu0vZJnaFKSx82_2cd1ViEzUzpS0W_BgDX-mIO6k1LioHWRgzuWIlNKfOqC8xo6gOu8Bt9mqzJdgX3EOB93xJDs8kXFzuuiDcne8KVrC1H3cJIFmxf4rt0jH_1nmDOcXEXqRfr_6nDdByU6XoXOhv1x2qzRfkPlpFM1wOotck_2qA9lBED1i8gqZc9cCmQR1cOkXblAQLA_62Tu5cz9WxyV3FKy6lt-I1dQYPmCn_UEdyzr6p2WMN3mQYEXfx3sfCywr4UZzzT14.A2_bxbTIm7XbU7ZAGNax0xfun-iS_nLy1wwbv2VTeN8&dib_tag=se&keywords=%28Qty+5%29+Proto-Advantage+Pitch+Changer+2.00+mm+to+2.54+mm+Conversion+-+10+pin&qid=1747103701&sprefix=qty+5+proto-advantage+pitch+changer+2+00+mm+to+2+54+mm+conversion+-+10+pin%2Caps%2C69&sr=8-1 
 https://www.amazon.ca/Female-Header-2-0mm-Straight-Pieces/dp/B09FSD82RB/ref=sr_1_9?crid=KRX8NL0T8NZN&dib=eyJ2IjoiMSJ9.x6IMZTOi_mrnUnpxz_NvI_PEluNMzhMMlXNWh2pPyqtjtIfLAlLeSnhyPHVaZjgxwEzf2Epthes1T95-34iDt2HCHWL05FUbIQ8PhLWef7c6Y3ZDe74Ub967QbG-euEJerjc7cQxILkV78x6QkBGiqps7664lnGtZgal3JySl9vG8Yj-KoqrlOZOxzTzVsvCIck1jVqjzFXoXjxiWKK2bhzhkeL6LFG4fTBkn4_qB2HOkKso3F3lEtSnZvdG5k_TeJNW9AAR7bm-M5w1aP7uG6dCjWhhCrzrD1b0_T_HK08.k0IFRFodFR5n5hCvo5Fh3J0exTLlt-r7pAasPAAX_1w&dib_tag=se&keywords=2%2Bmm%2Bheader&qid=1747104179&sprefix=2mm%2Bheader%2Caps%2C73&sr=8-9&th=1

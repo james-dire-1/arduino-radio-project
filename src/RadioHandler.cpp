@@ -10,6 +10,8 @@
 #define AM_LOWEST 530
 #define AM_HIGHEST 1710
 
+#define TIME_UNTIL_STANDBY_SAVE 10000
+
 void RadioHandler::Init() {
   if (EEPROM.read(INIT_ADDRESS) == 0xff) {
     EEPROM.update(INIT_ADDRESS, 10);
@@ -53,8 +55,19 @@ void RadioHandler::SwitchBand() {
 }
 
 bool RadioHandler::UpdateCurrentFrequency(int knobDirection) {
+  if (band == FM) {
+    if (!standbyStationSaved && 
+        (signed long)millis() - (signed long)stationChangedLastTime > TIME_UNTIL_STANDBY_SAVE) {
+
+      standbyStationSaved = true;
+      EEPROM.put(STANDBY_STATION_ADDRESS, (unsigned short)frequency);
+    }
+  }
+
   if (frequencyChanged) {
     frequencyChanged = false;
+    stationChangedLastTime = millis();
+    standbyStationSaved = false;
     return true;
   }
 
@@ -64,6 +77,8 @@ bool RadioHandler::UpdateCurrentFrequency(int knobDirection) {
     return false;
 
   preset = 0;
+  stationChangedLastTime = millis();
+  standbyStationSaved = false;
 
   if (band == FM) {
 
@@ -78,9 +93,6 @@ bool RadioHandler::UpdateCurrentFrequency(int knobDirection) {
     else if (frequency > AM_HIGHEST) frequency = AM_LOWEST;
 
   }
-
-  if (band == FM)
-    EEPROM.put(STANDBY_STATION_ADDRESS, (unsigned short)frequency);
 
   return true;
 }
