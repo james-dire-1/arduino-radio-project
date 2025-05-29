@@ -29,10 +29,12 @@ public:
   void SwitchBand();
   bool UpdateCurrentFrequency(int knobDirection);
   void TuneToPreset(int preset);
-  void StorePresetStation(int preset, int station);
   int RetreivePresetStation(int preset);
+  void StorePresetStation(int preset, int station);
 private:
+  int RetrievePresetStation(int preset);
   int GetEEPROMAddress(int preset);
+  int savedPresets[4];
 };
 
 // --------------------
@@ -41,24 +43,29 @@ class RadioInput
 {
 private:
   RotaryEncoder* encoder = nullptr;
-  int encoderButton;
+  int knobButton;
   int pinStickX;
   int pinStickY;
   int stickButton;
-  bool encoderLastPressed = false;
+  bool knobPressed = false;
+  bool knobLastPressed = false;
+  bool stickPressed = false;
   bool stickLastPressed = false;
   bool lastInRegion = false;
-  unsigned long lastDownTime;
+  unsigned long knobLastDownTime;
+  unsigned long joystickLastDownTime;
 public:
-  void Init(int pinA, int pinB, int encoderButton, int pinStickX, int pinStickY, int stickButton);
+  void Init(int pinA, int pinB, int knobButton, int pinStickX, int pinStickY, int stickButton);
   void Tick();
   bool KnobIsDown();
+  bool KnobIsLongPressed();
   int KnobGetDirection();
-  int JoystickGetRegion();
   bool JoystickIsDown();
   bool JoystickIsLongPressed();
+  int JoystickGetRegion();
 private:
-  bool IsDown(int pinButton, bool& lastPressed);
+  void UpdateInput(int pinButton, bool& pressed, bool& lastPressed);
+  bool IsDown(bool pressed, bool lastPressed);
 };
 
 // --------------------
@@ -78,7 +85,7 @@ public:
   void Init(RadioHandler* handler);
   void Tick();
   void PrintStationData();
-  void PrintText(bool centered, const char* text);
+  void PrintText(int row, bool centered, const char* text);
   void ScrollText(bool repeatScroll, const char* text);
   void StopScrollText();
   void Clear();

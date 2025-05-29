@@ -3,6 +3,7 @@
 #define INIT_ADDRESS 30
 #define FM_EEPROM_START 10
 #define AM_EEPROM_START 20
+#define STANDBY_STATION_ADDRESS 40
 
 #define FM_LOWEST 875
 #define FM_HIGHEST 1079
@@ -25,7 +26,19 @@ void RadioHandler::Init() {
         if (valueStored == 0xffff) StorePresetStation(i, defaultStation);
       }
     }
+
+    EEPROM.put(STANDBY_STATION_ADDRESS, (unsigned short)FM_LOWEST);
   }
+
+  for (int i = 0; i < 4; i++) {
+    savedPresets[i] = RetrievePresetStation(i + 1);
+  }
+
+  unsigned short standbyStation;
+  EEPROM.get(STANDBY_STATION_ADDRESS, standbyStation);
+  frequency = standbyStation;
+
+  frequencyChanged = true;
 }
 
 void RadioHandler::SwitchBand() {
@@ -51,6 +64,8 @@ bool RadioHandler::UpdateCurrentFrequency(int knobDirection) {
     return false;
   }
 
+  preset = 0;
+
   if (band == FM) {
 
     frequency += delta * 2;
@@ -65,6 +80,15 @@ bool RadioHandler::UpdateCurrentFrequency(int knobDirection) {
 
   }
 
+  for (int i = 0; i < 4; i++) {
+    if (savedPresets[i] == frequency) {
+      preset = i + 1;
+      break;
+    }
+  }
+
+  EEPROM.put(STANDBY_STATION_ADDRESS, (unsigned short)frequency);
+
   return true;
 }
 
@@ -72,16 +96,22 @@ void RadioHandler::TuneToPreset(int preset) {
   frequencyChanged = true;
   this->preset = preset;
 
+  frequency = RetrievePresetStation(preset);
+}
+
+int RadioHandler::RetrievePresetStation(int preset) {
   int address = GetEEPROMAddress(preset);
   unsigned short station;
   EEPROM.get(address, station);
 
-  frequency = (int) station;
+  return (int)station;
 }
 
 void RadioHandler::StorePresetStation(int preset, int station) {
   int address = GetEEPROMAddress(preset);
   EEPROM.put(address, (unsigned short)station);
+
+  savedPresets[preset - 1] = station;
 }
 
 int RadioHandler::GetEEPROMAddress(int preset) {

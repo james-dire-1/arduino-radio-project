@@ -2,11 +2,11 @@
 
 #define LONG_PRESS_TIME 3000
 
-void RadioInput::Init(int pinA, int pinB, int encoderButton, int pinStickX, int pinStickY, int stickButton) {
+void RadioInput::Init(int pinA, int pinB, int knobButton, int pinStickX, int pinStickY, int stickButton) {
   encoder = new RotaryEncoder(pinA, pinB, RotaryEncoder::LatchMode::FOUR3);
 
-  pinMode(encoderButton, INPUT_PULLUP);
-  this->encoderButton = encoderButton;
+  pinMode(knobButton, INPUT_PULLUP);
+  this->knobButton = knobButton;
 
   this->pinStickX = pinStickX;
   this->pinStickY = pinStickY;
@@ -19,15 +19,38 @@ void RadioInput::Tick() {
   encoder->tick();
 
   if (!stickLastPressed)
-    lastDownTime = millis();
+    joystickLastDownTime = millis();
+
+  if (!knobLastPressed)
+    knobLastDownTime = millis();
+
+  UpdateInput(knobButton, knobPressed, knobLastPressed);
+  UpdateInput(stickButton, stickPressed, stickLastPressed);
 }
 
 bool RadioInput::KnobIsDown() {
-  return IsDown(encoderButton, encoderLastPressed);
+  bool isDown = IsDown(knobPressed, knobLastPressed);
+  Serial.print("isDown ");
+  Serial.println(isDown);
+  return isDown;
+}
+
+bool RadioInput::KnobIsLongPressed() {
+  bool isLongPressed = millis() - knobLastDownTime >= LONG_PRESS_TIME;
+  return isLongPressed;
 }
 
 int RadioInput::KnobGetDirection() {
   return (int)encoder->getDirection();
+}
+
+bool RadioInput::JoystickIsDown() {
+  return IsDown(stickPressed, stickLastPressed);
+}
+
+bool RadioInput::JoystickIsLongPressed() {
+  bool isLongPressed = millis() - joystickLastDownTime >= LONG_PRESS_TIME;
+  return isLongPressed;
 }
 
 int RadioInput::JoystickGetRegion() {
@@ -60,26 +83,12 @@ int RadioInput::JoystickGetRegion() {
   return region;
 }
 
-bool RadioInput::JoystickIsDown() {
-  return IsDown(stickButton, stickLastPressed);
-}
-
-bool RadioInput::JoystickIsLongPressed() {
-  bool isLongPressed = millis() - lastDownTime >= LONG_PRESS_TIME;
-  return isLongPressed;
-}
-
-bool RadioInput::IsDown(int pinButton, bool& lastPressed) {
-  bool pressed = digitalRead(pinButton) == LOW;
-
-  bool isDown;
-  if (pressed && !lastPressed) {
-    isDown = true;
-  } else {
-    isDown = false;
-  }
-
+void RadioInput::UpdateInput(int pinButton, bool& pressed, bool& lastPressed) {
+  pressed = digitalRead(pinButton) == LOW;
   lastPressed = pressed;
+}
 
+bool RadioInput::IsDown(bool pressed, bool lastPressed) {
+  bool isDown = pressed && !lastPressed;
   return isDown;
 }

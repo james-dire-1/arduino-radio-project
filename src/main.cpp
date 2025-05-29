@@ -13,8 +13,6 @@ RadioInput input;
 RadioDisplay display;
 RadioModule module;
 
-// Testing another commit over here. Let's see if it commits to the main branch 
-
 void setup() {
   Wire.begin();//kick off the I2C
   Wire.setClock(50000);
@@ -23,72 +21,50 @@ void setup() {
   input.Init(PIN_A, PIN_B, ENCODER_BUTTON, PIN_STICK_X, PIN_STICK_Y, STICK_BUTTON);
   display.Init(&handler);
   handler.Init();
-
-  display.PrintStationData();
 }
-
-unsigned long lastTimeDebugging;
-int count;
 
 void loop() {
   static unsigned long lastTime;
 
   input.Tick();
-  display.Tick();  
-
-  // Serial.println("looping");
+  display.Tick();
 
   if (handler.state == Normal) {
     if (input.KnobIsDown()) handler.SwitchBand();
 
-    // int joystickPosition = input.JoystickGetRegion();
-    // if (joystickPosition != 0) {
-      // Serial.print("joystick position ");
-      // Serial.println(joystickPosition);
-      // handler.TuneToPreset(joystickPosition);
-    // }
+    int joystickPosition = input.JoystickGetRegion();
+    if (joystickPosition != 0) handler.TuneToPreset(joystickPosition);
 
-    // if (input.JoystickIsDown()) {
-      // TODO
-    // }
-
-    /* if (input.JoystickIsLongPressed()) {
+    if (input.KnobIsLongPressed()) {
       handler.state = ChoosePreset;
       display.Clear();
       display.ScrollText(true, "Move  joystick  up,  right,  down,  or  left  to  choose  preset  to  overwrite");
-    } */
-
-    // int knobDirection = input.KnobGetDirection();
-    // bool updated = handler.UpdateCurrentFrequency(knobDirection);
-
-    int fakeKnobDirection = 0;
-    if ((signed long)millis() - (signed long)lastTimeDebugging >= 1000) {
-      lastTimeDebugging = millis();
-
-      Serial.print("We are changing station ");
-      Serial.println(count);
-      fakeKnobDirection = 1;
-
-      count++;
     }
-    bool updated = handler.UpdateCurrentFrequency(fakeKnobDirection);
+
+    int knobDirection = input.KnobGetDirection();
+    bool updated = handler.UpdateCurrentFrequency(knobDirection);
 
     if (updated) {
-      // Serial.println("updated");
-      // display.PrintStationData();
+      display.PrintStationData();
       module.TuneTo(handler.band, handler.frequency);
     }
   }
 
   else if (handler.state == ChoosePreset) {
     int joystickPosition = input.JoystickGetRegion();
+
     if (joystickPosition != 0) {
       handler.state = PresetChosenConfirmation;
       handler.StorePresetStation(joystickPosition, handler.frequency);
 
       display.StopScrollText();
       display.Clear();
-      display.PrintText(true, "Preset saved!");
+
+      display.PrintText(0, true, "Station saved!");
+
+      char toPrint[15];
+      sprintf(toPrint, "%s%d", "Preset: ", joystickPosition);
+      display.PrintText(1, true, toPrint);
 
       lastTime = millis();
     }
