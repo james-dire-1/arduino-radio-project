@@ -10,3 +10,6 @@ schematic_final_WVFZMbBmqV.jpg
 ArduinoIdeas.txt
     Notes document used very early on in the project to organize ideas. This file was created
     before the radio idea was decided upon, so there are also other ideas listed.
+
+HardwareLinks.txt
+    Comprehensive list of hardware for the project along with respective links.
