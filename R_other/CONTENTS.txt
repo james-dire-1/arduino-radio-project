@@ -11,9 +11,6 @@ ArduinoIdeas.txt
     Notes document used very early on in the project to organize ideas. This file was created
     before the radio idea was decided upon, so there are also other ideas listed.
 
-HardwareLinks.txt
-    Comprehensive list of hardware for the project along with respective links.
-
 Radio.ino.txt
     Code written by Kevin Darrah from the YouTube video https://www.youtube.com/watch?v=n1hPj2wfsnA,
     which was used mostly as-is for this project. This video also served as inspiration for this
@@ -22,6 +19,13 @@ Radio.ino.txt
 ArduinoHardwareInstructions.docx
     Instructions document made so that everyone in the team would know how to wire up the
     radio components.
+
+SlideshowImages/
+    Folder of the images that were used in the slideshow found in R_slideshow.
+
+CircuitDiagramImages/
+    Folder of images used for the circuit diagram. Also contains the links to all images in the 
+    circuit diagram.
 
 ProgressVideos/
     Videos sent by James to the rest of the group when various progress throughout the semester

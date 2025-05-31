@@ -14,6 +14,3 @@ Files and folders in this folder (R_slideshow):
 
 RadioProjectSlides.pdf
     Last iteration of the slideshow.
-
-images/
-    Folder of the images that were used in the slideshow.

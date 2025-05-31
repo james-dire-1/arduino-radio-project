@@ -1,0 +1,28 @@
+MAIN HARDWARE:
+
+Arduino UNO Microcontroller
+Rotary Encoder with Button https://addison-electronique.com/en/iduino-rotary-encoder-module.html 
+LCD Display that is I2C compatible 
+Tuner Module 1 (FM only) with Antenna (TEA5767) : https://www.amazon.ca/dp/B074TC3VLN
+Amplifier 1 (TDA7297) : https://www.amazon.ca/dp/B07T5L5GY4
+Male-to-male Headphone Wire : https://www.amazon.ca/dp/B01L0YPVOY
+New Speakers : https://www.amazon.ca/gp/product/B07G9ZMYMZ
+Joystick : https://addison-electronique.com/en/5-pin-thumb-joystick-module-for-arduino.html 
+Power Bank     OR     9V Battery     OR     Power from a Computer
+Male-to-male Jumper Wires
+Male-to-female Jumper Wires
+Breadboard
+
+HARDWARE NO LONGER NEEDED/NOT IN USE:
+
+Tuner Module 2 (FM and AM) (TEF6686) : https://www.amazon.ca/dp/B0DXF17PTN
+Amplifier 2 (PAM8403) : https://www.amazon.ca/dp/B075ZR6QNX
+Rotary Potentiometer : https://www.amazon.ca/dp/B082FCRQS2
+Old Speakers : https://www.amazon.ca/dp/B07BFTYY6L
+Telescopic Antenna : https://www.amazon.ca/dp/B07SB58JMB
+Simple Connector for 9V Battery : https://www.amazon.com/dp/B0002ZPFU8
+Stereo Jack Socket Connector : https://www.amazon.ca/dp/B089W8P21R OR https://www.amazon.ca/dp/B093V39PVJ
+Pitch Changer : https://www.amazon.ca/dp/B097YS5ZMQ
+2.00-mm Headers : https://www.amazon.ca/dp/B09FSD82RB
+2.54-mm Headers
+Capacitors

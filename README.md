@@ -21,11 +21,12 @@ semester-long project. It contains an LCD display for displaying band and freque
 arduino-radio-project/
 │
 ├── src/             # Where the code is located
+├── R_resources/     # Important resources
 ├── R_images/        # Image files
 ├── R_assignments/   # Formal assignments done for the project
 ├── R_slideshow/     # Slideshow for the presentation from May 30th, 2024
 ├── R_oldcode/       # Old iterations of code before version control
-├── R_other/         # Miscellaneous files
+├── R_other/         # Miscellaneous files; unimportant
 ├── R_todo.txt       # General todo list
 ├── LICENSE          # MIT License file 
 └── README.md        # This file
@@ -59,7 +60,7 @@ cd arduino-radio-project
 
 ⚠️ WARNING: This project overwrites some sections of Arduino EEPROM. Make sure you have nothing important saved in the memory addresses indicated in the code. Also, make sure that the amplifier volume knob is turned down to not have any surprise loud noises on power up.
 
-First, set up the radio circuit as detailed in the circuit diagram 🔴 TO-DO.
+First, set up the radio circuit as detailed in the circuit diagram (this can be found in [`R_resources/CircuitDiagram.png`](R_resources/CircuitDiagram.png)).
 Upload the code onto the Arduino via the Upload tool provided by PlatformIO.
 The radio is now ready to go!
 

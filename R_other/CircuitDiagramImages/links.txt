@@ -1,0 +1,12 @@
+Links for circuit diagram
+
+https://www.pololu.com/product/2191 
+https://learn.sparkfun.com/tutorials/how-to-use-a-breadboard/all 
+https://www.circuitbasics.com/how-to-setup-and-program-rotary-encoders-on-the-arduino/ 
+https://www.amazon.ca/SunFounder-Serial-Module-Display-Arduino/dp/B019K5X53O?th=1 
+https://hub360.com.ng/product/tea5767-fm-radio-module/ 
+https://store.fut-electronics.com/products/fm-radio-receiver-module-with-antenna-tea5767 
+https://www.amazon.ca/dp/B07T5L5GY4 
+https://www.freepik.com/psd/electricity 
+https://www.amazon.ca/Arduino-Dual-axis-Joystick-Quality-Control/dp/B07Z453Y4H 
+https://icontact-2.myshopify.com/products/2600mah-power-bank-green-210series 

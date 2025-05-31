@@ -1,6 +1,4 @@
 Look at markdown formatting guide
 Take photos or create diagrams of circuit and add them to images/ folder
 Take a good look of everything in the cloned repository
-Upload progress videos onto the GitHub repository 
-Maybe upload circuit instructions onto the repository 
 Maybe upload box design onto the repository 
