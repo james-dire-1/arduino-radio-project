@@ -1,7 +1,7 @@
 This folder is for miscellaneous files that are related to the radio project, and are only in
 this repository for completeness' sake.
 
-Files in this folder (R_other):
+Files and folders in this folder (R_other):
 
 schematic_final_WVFZMbBmqV.jpg
     Schematic file we were considering using with the TEF6686 radio module.
@@ -22,3 +22,7 @@ Radio.ino.txt
 ArduinoHardwareInstructions.docx
     Instructions document made so that everyone in the team would know how to wire up the
     radio components.
+
+ProgressVideos/
+    Videos sent by James to the rest of the group when various progress throughout the semester
+    was made. Real professional-grade videos with exceptional production quality.
