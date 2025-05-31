@@ -1,0 +1,69 @@
+//Radio Demo
+//Kevin Darrah 12/17/16
+
+#include <Wire.h>//for I2C
+
+#define knobPin 0 //for the pot Analog 0
+#define meterPin 3//PWM on digital pin 3
+
+int analogReading;
+float frequencySetting = 88, oldSetting = 0;
+int meterOutput;// to the meter - 0..255
+void setFrequency();//function for setting the radio frequecy
+float frequencySettingSmoothArray[10];// needs to get 10 readings in a row before changing
+
+void setup()
+{
+  Wire.begin();//kick off the I2C
+  Serial.begin(9600);//debug
+}
+
+void loop()
+{
+
+  for (int i = 0; i < 10; i++) {// loop through and take 10 readings in a row from the pot and calculate frequency
+    analogReading = analogRead(knobPin);// from the knob 0..1023
+    frequencySetting = map(analogReading, 0, 1023, 0, 100);// x100 ticks odd numbers only
+    frequencySetting = (frequencySetting * 2 - 1 + 880) / 10.0;
+    // this converts the 0..100 value to frequencies between 87.9 to 107.9 MHz
+
+    frequencySettingSmoothArray[i] = frequencySetting;//load up the array
+  }
+
+  for (int i = 0; i < 10; i++) {//then we loop through that array and make sure we've got 10 identical readings
+    if (frequencySettingSmoothArray[0] != frequencySettingSmoothArray[i])//mismatch! continue using the old frequency
+      frequencySetting = oldSetting;//keep using the old frequency
+  }
+
+  meterOutput = map(analogReading, 0, 1023, 0, 255);//simply maps the knob value to the meter
+  analogWrite(meterPin, meterOutput);//drive the meter
+
+  if (frequencySetting != oldSetting) {// only if our new frequency measurmeent from the knob is new will we change the channel
+    Serial.println(frequencySetting);//debug
+    setFrequency(frequencySetting);// set the frequency to the radio
+    oldSetting = frequencySetting;// this is our new "old" frequency
+  }
+
+}
+
+
+void setFrequency(float frequency)
+{
+
+  //Code from: http://playground.arduino.cc/Main/TEA5767Radio
+  //Datasheet: https://www.sparkfun.com/datasheets/Wireless/General/TEA5767.pdf
+  
+  unsigned int frequencyB = 4 * (frequency * 1000000 + 225000) / 32768;
+  // this is from the datasheet
+  
+  byte frequencyH = frequencyB >> 8;//shift over to get the high byte
+  byte frequencyL = frequencyB & 0XFF;//cut off the top to get the LOW
+  Wire.beginTransmission(0x60);//start talking to the radio
+  Wire.write(frequencyH);//1st
+  Wire.write(frequencyL);//2nd
+  Wire.write(0xB0);//3rd
+  Wire.write(0x12);//4th
+  Wire.write(0x00);//5th
+  Wire.endTransmission();
+  delay(100);
+}
