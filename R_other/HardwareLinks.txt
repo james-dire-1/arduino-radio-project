@@ -7,6 +7,7 @@ Tuner Module 1 (FM only) (TEA5767) : https://www.amazon.ca/dp/B074TC3VLN
 Amplifier 1 (TDA7297) : https://www.amazon.ca/dp/B07T5L5GY4
 Male-to-male Headphone Wire : https://www.amazon.ca/dp/B01L0YPVOY
 New Speakers : https://www.amazon.ca/gp/product/B07G9ZMYMZ
+Joystick : https://addison-electronique.com/en/5-pin-thumb-joystick-module-for-arduino.html 
 9V Battery     OR     Power Bank     OR     Power from a Computer
 Male-to-male Jumper Wires
 Male-to-female Jumper Wires

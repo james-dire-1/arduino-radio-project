@@ -4,7 +4,7 @@ this repository for completeness' sake.
 Files in this folder (R_other):
 
 schematic_final_WVFZMbBmqV.jpg
-    Schematic file we might use if we want to eventually use the TEF6686 radio module.
+    Schematic file we were considering using with the TEF6686 radio module.
     From https://www.instructables.com/Simple-TEF6686-Arduino-PC-AM-FM-Radio-Receiver/ 
 
 ArduinoIdeas.txt

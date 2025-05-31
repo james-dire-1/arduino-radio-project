@@ -5,10 +5,10 @@ this project.
 Folders in this folder (R_oldcode):
 
 RadioIdeas
-    Old project folder from the Arduino IDE from March 16
+    Old project folder from the Arduino IDE from March 16.
 
 RadioIdeas2
-    Old project folder from the Arduino IDE from May 1
+    Old project folder from the Arduino IDE from May 1.
 
 RadioIdeas4_1
     Old backup folder from the Arduino IDE from May 8. This backup mostly separated the code into
