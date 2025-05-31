@@ -40,9 +40,9 @@ Below are instructions for getting the radio working yourself, if you wish.
 ### Prerequisites
 
 - Visual Studio Code
-- The [PlatformIO extension] (https://platformio.org/) for VS Code installed
-- The libraries outlined below in [Libraries Used](#Libraries Used)
-- All the necessary hardware (this can be found in [R_other/HardwareLinks.txt](R_other/HardwareLinks.txt). Look under the section MAIN HARDWARE
+- The [PlatformIO extension](https://platformio.org/) for VS Code installed
+- The libraries outlined below in [Libraries Used](#libraries-used)
+- All the necessary hardware (this can be found in [`R_other/HardwareLinks.txt`](R_other/HardwareLinks.txt). Look under the section MAIN HARDWARE
 
 ### Installation
 
@@ -57,6 +57,7 @@ cd arduino-radio-project
 ### Setting things up
 
 ⚠️ WARNING: This project overwrites some sections of Arduino EEPROM. Make sure you have nothing important saved in the memory addresses indicated in the code. Also, make sure that the amplifier volume knob is turned down to not have any surprise loud noises on power up.
+
 First, set up the radio circuit as detailed in the circuit diagram 🔴 TO-DO.
 Upload the code onto the Arduino via the Upload tool provided by PlatformIO.
 The radio is now ready to go!
@@ -64,10 +65,15 @@ The radio is now ready to go!
 ### How to use
 
 Extend the antenna for optimal reception. (Although, the radio should still work fine even if the antenna is not extended; it even works without the antenna!)
+
 Use the rotary encoder to switch between frequencies.
+
 Use the joystick to change between presets. Up, down, left, and right correspond to different presets.
+
 Use the knob on the amplifier to change the volume. (But don't raise the volume too high, as audio distortion occurs at high volumes.)
+
 Hold down on the rotary encoder for a few seconds to overwrite any preset. Once the scrolling prompt appears, move the joystick in the direction of the preset you wish to overwrite.
+
 Congratulations, you are now an expert user of the Arduino Radio!
 
 ## Advanced Section!
@@ -77,13 +83,13 @@ If you would like to package your radio into a portable box, there are model fil
 ## Libraries Used
 
 ### For LCDs
-- [hd44780 by Bill Perry](https://github.com/duinoWitchery/hd44780/tree/master). Contains functions like `setCursor(0, 0)`, `print("")`, and `clear()`
+- [hd44780](https://github.com/duinoWitchery/hd44780/tree/master) by Bill Perry. Contains functions like `setCursor(0, 0)`, `print("")`, and `clear()`
 
 ### For rotary encoders
-- [RotaryEncoder by Matthias Hertel](https://github.com/mathertel/RotaryEncoder/tree/master). Contains functions like `tick()` and `getDirection()`
+- [RotaryEncoder](https://github.com/mathertel/RotaryEncoder/tree/master) by Matthias Hertel. Contains functions like `tick()` and `getDirection()`
 
 ### Extra snippet of code
-Also, a snippet of code by Kevin Darrah (from one of the YouTube videos linked below in [Videos for inspiration](#Videos for inspiration)) was used from the project. This code is pasted directly into the RadioModule class in the code.
+Also, a snippet of code by Kevin Darrah (from one of the YouTube videos linked below in [Videos for inspiration](#videos-for-inspiration)) was used for this project. This code is pasted directly into the RadioModule class.
 
 ## License
 
@@ -130,5 +136,4 @@ There exist some libraries that could be useful for the future expansion.
 - [arduino_TEA5767 by Simon Monk](https://github.com/simonmonk/arduino_TEA5767) 
 
 ### For TEF6686 AM and FM module
-Seems to be particularly useful!
-- [TEF6686Library by ciuri](https://github.com/ciuri/TEF6686Library)
+- [TEF6686Library by ciuri](https://github.com/ciuri/TEF6686Library) (Seems to be particularly useful!)
