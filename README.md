@@ -44,7 +44,7 @@ Below are instructions for getting the radio working yourself, if you wish.
 - Visual Studio Code
 - The [PlatformIO extension](https://platformio.org/) for VS Code installed
 - The libraries outlined below in [Libraries Used](#libraries-used)
-- All the necessary hardware (this can be found in [`R_other/HardwareLinks.txt`](R_other/HardwareLinks.txt). Look under the section MAIN HARDWARE
+- All the necessary hardware (this can be found in [`R_resources/HardwareLinks.txt`](R_resources/HardwareLinks.txt). Look under the section MAIN HARDWARE
 
 ### Installation
 
