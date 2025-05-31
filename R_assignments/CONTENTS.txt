@@ -12,7 +12,3 @@ OLD_Arduino_Report.docx
 
 1_ArduinoReport.docx
     Second iteration of the final report.
-
-ArduinoHardwareInstructions.docx
-    Instructions document made so that everyone in the team would know how to wire up the
-    radio components.

@@ -18,3 +18,7 @@ Radio.ino.txt
     Code written by Kevin Darrah from the YouTube video https://www.youtube.com/watch?v=n1hPj2wfsnA,
     which was used mostly as-is for this project. This video also served as inspiration for this
     project.
+
+ArduinoHardwareInstructions.docx
+    Instructions document made so that everyone in the team would know how to wire up the
+    radio components.
