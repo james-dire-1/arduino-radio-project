@@ -23,6 +23,7 @@ arduino-radio-project/
 ├── src/             # Where the code is located
 ├── R_resources/     # Important resources
 ├── R_images/        # Image files
+├── R_finalreport/   # The final report for the project
 ├── R_assignments/   # Formal assignments done for the project
 ├── R_slideshow/     # Slideshow for the presentation from May 30th, 2024
 ├── R_oldcode/       # Old iterations of code before version control
@@ -91,7 +92,12 @@ If you would like to package your radio into a portable box, there are model fil
 - [RotaryEncoder](https://github.com/mathertel/RotaryEncoder/tree/master) by Matthias Hertel. Contains functions like `tick()` and `getDirection()`
 
 ### Extra snippet of code
-Also, a snippet of code by Kevin Darrah (from one of the YouTube videos linked below in [Videos for inspiration](#videos-for-inspiration)) was used for this project. This code is pasted directly into the RadioModule class.
+Also, a snippet of code from Kevin Darrah's YouTube video (linked below in [Videos for inspiration](#videos-for-inspiration)) was used for this project. This code is pasted directly into the RadioModule class. Kevin Darrah mentions in the video that this snippet of code came from Simon Monk's library 
+(linked further below).
+
+## Final Report
+
+A final report was written for this project. It can be found in [`R_finalreport/RadioFinalReport.md`](R_finalreport/RadioFinalReport.md).
 
 ## License
 
@@ -113,10 +119,12 @@ This Arduino radio project is licensed under the [MIT License](LICENSE).
 - [How I2C Communication Works and How To Use It with Arduino](https://www.youtube.com/watch?v=6IAkYpmA1DQ)
 - [Using LCD Displays with Arduino](https://www.youtube.com/watch?v=wEbGhYjn4QI)
 - [Using Rotary Encoders with Arduino](https://www.youtube.com/watch?v=V1txmR8GXzE)
-- [ROTARY ENCODER WITH INTERRUPTS - Arduino tutorial #12](https://www.youtube.com/watch?v=gPLpPFmv-Zc) 
-- [Pin Change Interrupts](https://gammon.com.au/forum/?id=11488&reply=6#reply6)
+- [ROTARY ENCODER WITH INTERRUPTS - Arduino tutorial #12](https://www.youtube.com/watch?v=gPLpPFmv-Zc) (not really used)
+- [Pin Change Interrupts](https://gammon.com.au/forum/?id=11488&reply=6#reply6) (not really used)
 - [Powering Arduino With a Battery](https://www.instructables.com/Powering-Arduino-with-a-Battery/)
 - [How to program Arduino with VSCode](https://www.youtube.com/watch?v=gQ2lsSuXvVU)
+- [A guide to EEPROM](https://docs.arduino.cc/learn/programming/eeprom-guide/)
+- [C++ Tutorial Series](https://www.youtube.com/playlist?list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb)
 
 ## Plans for Future Expansion
 
@@ -138,4 +146,4 @@ There exist some libraries that could be useful for the future expansion.
 - [arduino_TEA5767 by Simon Monk](https://github.com/simonmonk/arduino_TEA5767) 
 
 ### For TEF6686 AM and FM module
-- [TEF6686Library by ciuri](https://github.com/ciuri/TEF6686Library) (Seems to be particularly useful!)
+- [TEF6686Library by ciuri](https://github.com/ciuri/TEF6686Library) (seems to be particularly useful!)

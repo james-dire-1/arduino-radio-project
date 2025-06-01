@@ -12,9 +12,10 @@ ArduinoIdeas.txt
     before the radio idea was decided upon, so there are also other ideas listed.
 
 Radio.ino.txt
-    Code written by Kevin Darrah from the YouTube video https://www.youtube.com/watch?v=n1hPj2wfsnA,
-    which was used mostly as-is for this project. This video also served as inspiration for this
-    project.
+    Code from Kevin Darrah's YouTube video https://www.youtube.com/watch?v=n1hPj2wfsnA, which 
+    was used mostly as-is for this project. This video also served as inspiration for this
+    project. In the video, Kevin Darrah mentions that this specific snippet of code was from
+    Simon Monk's TEA5767 library (linked in this repsoitory's README).
 
 ArduinoHardwareInstructions.docx
     Instructions document made so that everyone in the team would know how to wire up the
@@ -24,8 +25,8 @@ SlideshowImages/
     Folder of the images that were used in the slideshow found in R_slideshow.
 
 CircuitDiagramImages/
-    Folder of images used for the circuit diagram. Also contains the links to all images in the 
-    circuit diagram.
+    Folder of images used for the circuit diagram found in R_resources. Also contains the links 
+    to all images in the circuit diagram.
 
 ProgressVideos/
     Videos sent by James to the rest of the group when various progress throughout the semester
