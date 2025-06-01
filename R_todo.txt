@@ -1,6 +1,5 @@
 Add more photos to images/ folder
 Maybe upload box design onto the repository 
-Change all CONTENTS.txt to README
 Maybe include wiring instructions somewhere?
 Comments in the Arduino code? (What each part does)
 HARDWARE.md: "List all the components used and document with descriptions"

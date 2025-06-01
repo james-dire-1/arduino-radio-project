@@ -1,5 +1,5 @@
 This folder is for old iterations of the radio code that existed before version control for the
-project was setup. They are presented in this folder for completeness in the documentation of
+project was set up. They are presented in this folder for completeness in the documentation of
 this project.
 
 Folders in this folder (R_oldcode):
