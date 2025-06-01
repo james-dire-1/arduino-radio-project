@@ -2,5 +2,3 @@ Look at markdown formatting guide
 Take a good look of everything in the cloned repository
 Add photos to images/ folder
 Maybe upload box design onto the repository 
-Add contributor 
-Put final report and iterations of it in repository

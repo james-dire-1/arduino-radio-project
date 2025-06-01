@@ -12,3 +12,10 @@ OLD_Arduino_Report.docx
 
 1_ArduinoReport.docx
     Second iteration of the final report.
+
+2_ArduinoReport.docx
+    Third iteration of the final report.
+
+ArduinoReport.docx
+    Last iteration of the final report before it was transferred to a Markdown file. The
+    most up-to-date report can be found in R_finalreport. 

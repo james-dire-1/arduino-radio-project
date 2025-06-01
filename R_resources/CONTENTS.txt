@@ -7,4 +7,4 @@ HardwareLinks.txt
     Comprehensive list of hardware for the project along with respective links.
 
 CircuitDiagram.png
-    Complete circuit diagram for building the radio.
+    Complete circuit diagram for building the radio. Made with LucidChart.

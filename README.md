@@ -1,6 +1,6 @@
 # Arduino Radio
 
-The Arduino Radio is an FM radio built for the Dawson College MakerSPACE internship as a
+The Arduino Radio is an FM radio built for the Dawson College MakerSPACE Internship as a
 semester-long project. It contains an LCD display for displaying band and frequency, supports preset saving and tuning, and is packaged in a small portable box so that it can be brought around easily. 
 
 ## Overview and Features
@@ -22,9 +22,9 @@ arduino-radio-project/
 │
 ├── src/             # Where the code is located
 ├── R_resources/     # Important resources
-├── R_images/        # Image files
+├── R_images/        # Images of the final radio
 ├── R_finalreport/   # The final report for the project
-├── R_assignments/   # Formal assignments done for the project
+├── R_assignments/   # Formal assignments done for the project (and their iterations)
 ├── R_slideshow/     # Slideshow for the presentation from May 30th, 2024
 ├── R_oldcode/       # Old iterations of code before version control
 ├── R_other/         # Miscellaneous files; unimportant
