@@ -26,6 +26,7 @@ arduino-radio-project/
 ├── R_finalreport/   # The final report for the project
 ├── R_assignments/   # Formal assignments done for the project (and their iterations)
 ├── R_slideshow/     # Slideshow for the presentation from May 30th, 2024
+├── R_models/        # 3D models for the radio
 ├── R_oldcode/       # Old iterations of code before version control
 ├── R_other/         # Miscellaneous files; unimportant
 ├── R_todo.txt       # General todo list
@@ -81,7 +82,7 @@ Congratulations, you are now an expert user of the Arduino Radio!
 
 ## Advanced Section!
 
-If you would like to package your radio into a portable box, there are model files that can be 3D printed which are found in 🔴TO-DO. However, it is recommended that you design your own box for the radio components, as the designs provided in the model files have many flaws and problems to them.
+If you would like to package your radio into a portable box, there are model files that can be 3D printed which are found in [`R_models/`](R_models/). However, it is recommended that you design your own box for the radio components, as the designs provided in the model files have many flaws and problems to them.
 
 ## Libraries Used
 
