@@ -1,4 +1,7 @@
-Look at markdown formatting guide
-Take a good look of everything in the cloned repository
-Add photos to images/ folder
+Add more photos to images/ folder
 Maybe upload box design onto the repository 
+Change all CONTENTS.txt to README
+Maybe include wiring instructions somewhere?
+Comments in the Arduino code? (What each part does)
+HARDWARE.md: "List all the components used and document with descriptions"
+CODE.md: "Describe the build process and explain how your code works using code snippets"
