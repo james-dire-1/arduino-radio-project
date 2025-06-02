@@ -30,4 +30,5 @@ CircuitDiagramImages/
 
 ProgressVideos/
     Videos sent by James to the rest of the group when various progress throughout the semester
-    was made. Real professional-grade videos with exceptional production quality.
+    was made. Real professional-grade videos with exceptional production quality. Also includes
+    a couple of videos recorded by Claudio in the physics lab showcasing the radio working.
