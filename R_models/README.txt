@@ -15,5 +15,7 @@ radio_case_assembly.SLDASM
     Edits on the Main_box_assembly_part.SLDPRT file.
 
 Main_box_assembly_part.STL
-    The file that was used to print with the 3D printer.
+    The file that was used to print with the 3D printer. If you want to print from one of
+    our models (and not make your own) should you want to make the radio yourself, it is
+    recommended that you print from this file specifically.
 

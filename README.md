@@ -1,7 +1,7 @@
 # Arduino Radio
 
 The Arduino Radio is an FM radio built for the Dawson College MakerSPACE Internship as a
-semester-long project. It contains an LCD display for displaying band and frequency, supports preset saving and tuning, and is packaged in a small portable box so that it can be brought around easily. 
+semester-long project. It contains an LCD display for displaying band and frequency, supports preset saving and tuning, and is packaged in a small, portable box so that it can be brought around easily. 
 
 ## Overview and Features
 
@@ -46,7 +46,7 @@ Below are instructions for getting the radio working yourself, if you wish.
 - Visual Studio Code
 - The [PlatformIO extension](https://platformio.org/) for VS Code installed
 - The libraries outlined below in [Libraries Used](#libraries-used)
-- All the necessary hardware (this can be found in [`R_resources/HardwareLinks.txt`](R_resources/HardwareLinks.txt)). Look under the section MAIN HARDWARE
+- All the necessary hardware (this can be found in [`R_resources/HardwareLinks.txt`](R_resources/HardwareLinks.txt); look under the section MAIN HARDWARE)
 
 ### Installation
 
